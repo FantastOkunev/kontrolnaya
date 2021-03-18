@@ -11,7 +11,7 @@ public:
     int *arr = nullptr;
     int N = 0;
 
-private:
+protected:
     void delete_all()
     {
         delete[] arr;
@@ -54,7 +54,7 @@ public:
             arr[i] = rand() % 100;
         }
     }
-    ~Base()
+    virtual ~Base()
     {
         delete_all();
     }
@@ -121,11 +121,12 @@ public:
     }
 };
 
-class Child : Base
+class Child : public Base
 {
 public:
     Child(int N_) : Base(N_) {}
     ~Child() {}
+    Child(const Base &other) : Base(other) {}
     bool comparison(int first, int second)
     {
         if (first >= second)
@@ -146,8 +147,8 @@ ostream &operator<<(ostream &cout, const Base &vec)
 int main()
 {
     srand(clock() * time(NULL));
-    Base vec1(5), vec2(6);
-    Base vec3(vec1 + vec2);
+    Child vec1(5), vec2(6);
+    Child vec3(vec1 + vec2);
     cout << vec1 << endl
          << vec2 << endl
          << vec3 << endl;
@@ -158,4 +159,8 @@ int main()
     vec3++;
     vec3++;
     cout << vec3 << endl;
+
+    Base *v = new Child(Base(5) + Child(Base(7)) + Child(5)++ + ++Base(5));
+    cout << *v;
+    delete v;
 }
