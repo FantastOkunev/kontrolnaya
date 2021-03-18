@@ -57,6 +57,36 @@ public:
     {
         delete_all();
     }
+    Base(const Base &other)
+    {
+        N = other.N;
+        arr = new int[N];
+        for (int i = 0; i < N; i++)
+        {
+            arr[i] = other.arr[i];
+        }
+    }
+    Base(Base &&other)
+    {
+        N = other.N;
+        arr = other.arr;
+        other.arr = nullptr;
+    }
+    Base &operator=(const Base &other)
+    {
+        if (this == &other)
+        {
+            return *this;
+        }
+        delete_all();
+        N = other.N;
+        arr = new int[N];
+        for (int i = 0; i < N; i++)
+        {
+            arr[i] = other.arr[i];
+        }
+        return *this;
+    }
 };
 
 class Child : Base
@@ -78,13 +108,14 @@ ostream &operator<<(ostream &cout, const Base &vec)
     {
         cout << vec.arr[i] << " ";
     }
-    cout << endl;
     return cout;
 }
 
 int main()
 {
     srand(clock() * time(NULL));
-    Base vec(5);
-    cout << vec;
+    Base vec1(5), vec2(6);
+    vec2 = vec1;
+    cout << vec1 << endl
+         << vec2 << endl;
 }
