@@ -34,6 +34,7 @@ private:
             arr[i] = arr[i + 1];
         }
         N--;
+        return 0;
     }
     virtual bool comprasion(int first, int second)
     {
@@ -87,6 +88,37 @@ public:
         }
         return *this;
     }
+    Base operator+(const Base &other)
+    {
+        int N_sum = min(N, other.N);
+        Base sum(N_sum);
+        for (int i = 0; i < N_sum; i++)
+        {
+            sum.arr[i] = arr[i] + other.arr[i];
+        }
+        return sum;
+    }
+    Base operator-(const Base &other)
+    {
+        int N_sum = min(N, other.N);
+        Base sum(N_sum);
+        for (int i = 0; i < N_sum; i++)
+        {
+            sum.arr[i] = arr[i] - other.arr[i];
+        }
+        return sum;
+    }
+    Base &operator++(void)
+    {
+        delete_max();
+        return *this;
+    }
+    Base operator++(int)
+    {
+        Base tmp(*this);
+        delete_max();
+        return tmp;
+    }
 };
 
 class Child : Base
@@ -115,7 +147,15 @@ int main()
 {
     srand(clock() * time(NULL));
     Base vec1(5), vec2(6);
-    vec2 = vec1;
+    Base vec3(vec1 + vec2);
     cout << vec1 << endl
-         << vec2 << endl;
+         << vec2 << endl
+         << vec3 << endl;
+    vec3++;
+    vec3++;
+    vec3++;
+    vec3++;
+    vec3++;
+    vec3++;
+    cout << vec3 << endl;
 }
