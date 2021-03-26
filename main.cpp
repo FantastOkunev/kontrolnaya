@@ -19,9 +19,10 @@ protected:
     }
     int delete_max()
     {
+        int dmax = 0;
         if (N == 0)
             return 1;
-        int imax = 0;
+        int imax = 0, j = 0;
         for (int i = 0; i < N; i++)
         {
             if (!comprasion(arr[imax], arr[i]))
@@ -29,11 +30,22 @@ protected:
                 imax = i;
             }
         }
-        for (int i = imax; i < N - 1; i++)
+        dmax = arr[imax];
+
+        while (j < N)
         {
-            arr[i] = arr[i + 1];
+            if (arr[j] == dmax)
+            {
+                for (int i = j; i < N - 1; i++)
+                {
+                    arr[i] = arr[i + 1];
+                }
+                N--;
+            }
+            else
+                j++;
         }
-        N--;
+
         return 0;
     }
     virtual bool comprasion(int first, int second)
@@ -51,7 +63,7 @@ public:
         arr = new int[N_];
         for (int i = 0; i < N; i++)
         {
-            arr[i] = rand() % 100;
+            arr[i] = rand() % 2;
         }
     }
     virtual ~Base()
@@ -129,7 +141,7 @@ public:
     Child(const Base &other) : Base(other) {}
     bool comparison(int first, int second)
     {
-        if (first >= second)
+        if (first < second)
             return 1;
         else
             return 0;
@@ -153,7 +165,10 @@ int main()
          << vec2 << endl
          << vec3 << endl;
     vec3++;
+    cout << vec3 << endl;
     vec3++;
+    cout << vec3 << endl;
+
     vec3++;
     vec3++;
     vec3++;
