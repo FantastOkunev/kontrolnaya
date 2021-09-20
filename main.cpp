@@ -29,7 +29,7 @@ public:
         array = nullptr;
         len = 0;
     }
-    ~CData()
+    virtual ~CData()
     {
         delete_all();
     }
@@ -79,6 +79,28 @@ public:
     }
 
     virtual void sort() = 0;
+    static int comp(const void *arg1, const void *arg2)
+    {
+        int a = abs(*(int *)arg1), b = abs(*(int *)arg2), aa = 0, bb = 0;
+        while (a)
+        {
+            aa *= 10;
+            aa += a % 10;
+            a /= 10;
+        }
+        while (b)
+        {
+            bb *= 10;
+            bb += b % 10;
+            b /= 10;
+        }
+        if (aa == bb)
+            return 0;
+        if (aa > bb)
+            return -1;
+        else
+            return 1;
+    }
 };
 
 class CData0 : public CData
@@ -86,7 +108,21 @@ class CData0 : public CData
 public:
     CData0(int N, int *arr) : CData(N, arr) {}
     CData0(const CData &other) : CData(other) {}
-    void sort() {}
+    void sort()
+    {
+        for (int i = 0; i < len - 1; i++)
+        {
+            for (int j = 0; j < len - 1 - i; j++)
+            {
+                if (comp(&array[j], &array[j + 1]) > 0)
+                {
+                    int tmp = array[j];
+                    array[j] = array[j + 1];
+                    array[j + 1] = tmp;
+                }
+            }
+        }
+    }
 };
 
 class CData1 : public CData
@@ -97,26 +133,39 @@ public:
 
     void sort()
     {
+        qsort(array, len, sizeof(int), comp);
     }
 };
 
 CData0 operator+(const CData &first, const CData &second)
 {
-    int len = max(first.len, second.len);
-    int *array = new int[len];
-    for (int i = 0; i < len; i++)
+    int max_len = max(first.len, second.len), len = 0;
+    int *arr = new int[max_len];
+    CData1 a(first), b(second);
+    a.sort();
+    b.sort();
+    int res;
+    for (int i = 0, j = 0; i < a.len and j < b.len;)
     {
-        array[i] = 0;
+        if ((res = CData::comp(&a.array[i], &b.array[j])) == 0)
+        {
+            arr[len] = a.array[i];
+            len++;
+            i++;
+            j++;
+        }
+        else if (res > 0)
+        {
+            j++;
+        }
+        else
+        {
+            i++;
+        }
     }
-    for (int i = 0; i < first.len; i++)
-    {
-        array[i] += first.array[i];
-    }
-    for (int i = 0; i < second.len; i++)
-    {
-        array[i] += second.array[i];
-    }
-    return CData0(len, array);
+    CData1 sum(len, arr);
+    delete[] arr;
+    return sum;
 }
 
 CData *get_CData(char *str, char **new_str)
@@ -127,11 +176,12 @@ CData *get_CData(char *str, char **new_str)
     if (sscanf(str, "%s%n", s, &n) != 1)
     {
         delete[] s;
+        delete[] arr;
         return nullptr;
     }
 
     str += n;
-    if (strlen(s) == 7 and s[5] == '0')
+    if (strlen(s) == 6 and s[5] == '0')
         I = 0;
     else
     {
@@ -168,7 +218,7 @@ CData *get_CData(char *str, char **new_str)
     }
     else
     {
-        ret = new CData1(len_arr, arr);
+        ret = new CData0(len_arr, arr);
     }
     delete[] arr;
     delete[] s;
@@ -182,6 +232,7 @@ int main()
     CData **arr = new CData *[size_arr], **tmp_arr = nullptr;
     CData *buf = nullptr;
     char *str = new char[len_str];
+    char *old_str = str;
     ifstream fin("1.txt");
     fin.getline(str, len_str - 1);
     while ((buf = get_CData(str, &str)))
@@ -206,6 +257,43 @@ int main()
     {
         arr[i]->output();
     }
+    cout << endl;
+    for (int i = 0; i < len_arr; i++)
+    {
+        arr[i]->sort();
+    }
 
+    for (int i = 0; i < len_arr; i++)
+    {
+        arr[i]->output();
+    }
+    cout << endl;
+
+    CData *tmp = arr[len_arr - 1];
+    for (int i = len_arr - 1; i > 0; i--)
+    {
+        arr[i] = arr[i - 1];
+    }
+    arr[0] = tmp;
+
+    for (int i = 0; i < len_arr; i++)
+    {
+        arr[i]->output();
+    }
+
+    cout << endl;
+    CData1 sum(*arr[0]);
+    for (int i = 0; i < len_arr; i++)
+    {
+        sum = sum + *arr[i];
+    }
+    sum.output();
+
+    for (int i = 0; i < len_arr; i++)
+    {
+        delete arr[i];
+    }
+    delete[] arr;
+    delete[] old_str;
     return 0;
 }
