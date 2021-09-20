@@ -3,6 +3,7 @@
 #include <cstring>
 #include <cmath>
 #include <vector>
+#include <random>
 
 using namespace std;
 
@@ -20,6 +21,18 @@ public:
         matrix[1].resize(2);
         matrix[0][0] = 1;
         matrix[1][0] = -1;
+    }
+    CData(unsigned int k)
+    {
+        matrix.resize(k);
+        for (unsigned int i = 0; i < k; i++)
+        {
+            matrix[i].resize(rand() % k);
+            for (unsigned int j = 0; j < matrix[i].size(); j++)
+            {
+                matrix[i][j] = rand() % k;
+            }
+        }
     }
     virtual ~CData()
     {
@@ -93,6 +106,7 @@ class CData0 : public CData
 {
 public:
     CData0() : CData() {}
+    CData0(unsigned int k) : CData(k) {}
     CData0(const CData &other) : CData(other) {}
     CData0 &operator-=(int a)
 
@@ -121,7 +135,7 @@ class CData1 : public CData
 public:
     CData1() : CData() {}
     CData1(const CData &other) : CData(other) {}
-
+    CData1(unsigned int k) : CData(k) {}
     CData1 &operator-=(int a)
     {
         for (unsigned int i = 0; i < matrix.size(); i++)
@@ -141,7 +155,8 @@ public:
 
 int main()
 {
-    CData0 a;
+    srand(time(0));
+    CData0 a(3);
     CData1 b;
     a.output();
     cout << endl;
