@@ -155,7 +155,31 @@ public:
 
 int main()
 {
-    srand(time(0));
+    int len_str = 32 * 32;
+    CData **arr = new CData *[size_arr], **tmp_arr = nullptr;
+
+    char *str = new char[len_str];
+    char *old_str = str;
+    ifstream fin("1.txt");
+    fin.getline(str, len_str - 1);
+    while ((buf = get_CData(str, &str)))
+    {
+        if (len_arr == size_arr)
+        {
+            size_arr *= 2;
+            tmp_arr = new CData *[size_arr];
+            for (int i = 0; i < len_arr; i++)
+            {
+                tmp_arr[i] = arr[i];
+            }
+            delete[] arr;
+            arr = tmp_arr;
+            tmp_arr = nullptr;
+        }
+        arr[len_arr] = buf;
+        len_arr++;
+    }
+    fin.close();
     CData0 a(3);
     CData1 b;
     a.output();
