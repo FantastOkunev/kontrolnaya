@@ -22,10 +22,10 @@ public:
     CData(const CData &other)
     {
         matrix.resize(other.matrix.size());
-        for (int i = 0; i < matrix.size(); i++)
+        for (unsigned int i = 0; i < matrix.size(); i++)
         {
             matrix[i].resize(other.matrix[i].size());
-            for (int j = 0; j < matrix.size(); j++)
+            for (unsigned int j = 0; j < matrix.size(); j++)
             {
                 matrix[i][j] = other.matrix[i][j];
             }
@@ -33,12 +33,41 @@ public:
     }
     CData(CData &&other)
     {
+        matrix.resize(other.matrix.size());
+        for (unsigned int i = 0; i < matrix.size(); i++)
+        {
+            matrix[i].resize(other.matrix[i].size());
+            for (unsigned int j = 0; j < matrix.size(); j++)
+            {
+                matrix[i][j] = other.matrix[i][j];
+            }
+        }
     }
     CData &operator=(const CData &other)
     {
+        matrix.resize(other.matrix.size());
+        for (unsigned int i = 0; i < matrix.size(); i++)
+        {
+            matrix[i].resize(other.matrix[i].size());
+            for (unsigned int j = 0; j < matrix.size(); j++)
+            {
+                matrix[i][j] = other.matrix[i][j];
+            }
+        }
+        return *this;
     }
     CData &operator=(CData &&other)
     {
+        matrix.resize(other.matrix.size());
+        for (unsigned int i = 0; i < matrix.size(); i++)
+        {
+            matrix[i].resize(other.matrix[i].size());
+            for (unsigned int j = 0; j < matrix.size(); j++)
+            {
+                matrix[i][j] = other.matrix[i][j];
+            }
+        }
+        return *this;
     }
     void output()
     {
