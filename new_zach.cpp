@@ -27,7 +27,7 @@ public:
         matrix.resize(k);
         for (unsigned int i = 0; i < k; i++)
         {
-            matrix[i].resize(rand() % k);
+            matrix[i].resize(rand() % 5);
             for (unsigned int j = 0; j < matrix[i].size(); j++)
             {
                 matrix[i][j] = rand() % k;
