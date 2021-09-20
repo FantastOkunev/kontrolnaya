@@ -94,7 +94,19 @@ public:
     CData0(const CData &other) : CData(other) {}
     CData0 &operator-=(int a)
     {
-        matrix[0][0] -= a;
+        int i = 0, j = 0;
+        while (i < matrix[0].size())
+        {
+            if (i == a)
+            {
+                i++;
+            }
+            else
+            {
+                matrix[0][j] = matrix[0][i];
+                matrix
+            }
+        }
         return *this;
     }
 };
@@ -114,14 +126,6 @@ public:
 
 int main()
 {
-    CData0 a;
-    CData1 b;
-    a -= 1;
-    a.output();
-    b -= 1;
-    b.output();
-    CData0 c;
-    c = b;
-    c.output();
+
     return 0;
 }
