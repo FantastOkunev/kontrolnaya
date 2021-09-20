@@ -21,6 +21,15 @@ public:
     }
     CData(const CData &other)
     {
+        matrix.resize(other.matrix.size());
+        for (int i = 0; i < matrix.size(); i++)
+        {
+            matrix[i].resize(other.matrix[i].size());
+            for (int j = 0; j < matrix.size(); j++)
+            {
+                matrix[i][j] = other.matrix[i][j];
+            }
+        }
     }
     CData(CData &&other)
     {
