@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstring>
 #include <cmath>
+#include <string>
 
 using namespace std;
 

@@ -4,6 +4,7 @@
 #include <cmath>
 #include <vector>
 #include <random>
+#include <string>
 
 using namespace std;
 
@@ -157,12 +158,13 @@ int main()
 {
     int len_str = 32 * 32;
     CData **arr = new CData *[size_arr], **tmp_arr = nullptr;
-
+    string sss;
     char *str = new char[len_str];
     char *old_str = str;
     ifstream fin("1.txt");
     fin.getline(str, len_str - 1);
-    while ((buf = get_CData(str, &str)))
+    sss = str;
+    while ((buf = get_CData(sss)))
     {
         if (len_arr == size_arr)
         {
