@@ -33,6 +33,14 @@ public:
     }
     void output()
     {
+        for (unsigned int i = 0; i < matrix.size(); i++)
+        {
+            for (unsigned int j = 0; j < matrix[i].size(); j++)
+            {
+                cout << matrix[i][j] << " ";
+            }
+            cout << endl;
+        }
     }
 
     virtual CData &operator-=(int a) = 0;
@@ -45,6 +53,8 @@ public:
     CData0(const CData &other) : CData(other) {}
     CData0 &operator-=(int a)
     {
+        matrix[0][0] -= a;
+        return *this;
     }
 };
 
@@ -56,6 +66,8 @@ public:
 
     CData1 &operator-=(int a)
     {
+        matrix[0][0] += a;
+        return *this;
     }
 };
 
