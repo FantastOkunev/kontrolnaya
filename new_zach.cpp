@@ -15,6 +15,9 @@ protected:
 public:
     CData()
     {
+        matrix.resize(2);
+        matrix[0].resize(2);
+        matrix[1].resize(2);
     }
     virtual ~CData()
     {
@@ -111,6 +114,14 @@ public:
 
 int main()
 {
-
+    CData0 a;
+    CData1 b;
+    a -= 1;
+    a.output();
+    b -= 1;
+    b.output();
+    CData0 c;
+    c = b;
+    c.output();
     return 0;
 }
