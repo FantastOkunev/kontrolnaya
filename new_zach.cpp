@@ -2,22 +2,18 @@
 #include <fstream>
 #include <cstring>
 #include <cmath>
+#include <vector>
 
 using namespace std;
 
 class CData
 {
 public:
-    int *array = nullptr;
-    int len = 0;
+    vector<vector<int>> matrix;
 
 protected:
 public:
-    CData(int N, int *arr)
-    {
-    }
-
-    void delete_all()
+    CData()
     {
     }
     virtual ~CData()
@@ -39,18 +35,15 @@ public:
     {
     }
 
-    virtual void sort() = 0;
-    static int comp(const void *arg1, const void *arg2)
-    {
-    }
+    virtual CData &operator-=(int a) = 0;
 };
 
 class CData0 : public CData
 {
 public:
-    CData0(int N, int *arr) : CData(N, arr) {}
+    CData0() : CData() {}
     CData0(const CData &other) : CData(other) {}
-    void sort()
+    CData0 &operator-=(int a)
     {
     }
 };
@@ -58,17 +51,13 @@ public:
 class CData1 : public CData
 {
 public:
-    CData1(int N, int *arr) : CData(N, arr) {}
+    CData1() : CData() {}
     CData1(const CData &other) : CData(other) {}
 
-    void sort()
+    CData1 &operator-=(int a)
     {
     }
 };
-
-CData0 operator+(const CData &first, const CData &second)
-{
-}
 
 int main()
 {
