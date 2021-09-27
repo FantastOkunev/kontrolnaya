@@ -25,6 +25,7 @@ public:
         }
     }
 
+    //skfs
     CData(const CData &other)
     {
         for (unsigned int i = 0; i < N; i++)
