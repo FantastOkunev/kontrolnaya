@@ -38,56 +38,6 @@ public:
     virtual ~CData()
     {
     }
-    CData(const CData &other)
-    {
-        matrix.resize(other.matrix.size());
-        for (unsigned int i = 0; i < matrix.size(); i++)
-        {
-            matrix[i].resize(other.matrix[i].size());
-            for (unsigned int j = 0; j < matrix.size(); j++)
-            {
-                matrix[i][j] = other.matrix[i][j];
-            }
-        }
-    }
-    CData(CData &&other)
-    {
-        matrix.resize(other.matrix.size());
-        for (unsigned int i = 0; i < matrix.size(); i++)
-        {
-            matrix[i].resize(other.matrix[i].size());
-            for (unsigned int j = 0; j < matrix.size(); j++)
-            {
-                matrix[i][j] = other.matrix[i][j];
-            }
-        }
-    }
-    CData &operator=(const CData &other)
-    {
-        matrix.resize(other.matrix.size());
-        for (unsigned int i = 0; i < matrix.size(); i++)
-        {
-            matrix[i].resize(other.matrix[i].size());
-            for (unsigned int j = 0; j < matrix.size(); j++)
-            {
-                matrix[i][j] = other.matrix[i][j];
-            }
-        }
-        return *this;
-    }
-    CData &operator=(CData &&other)
-    {
-        matrix.resize(other.matrix.size());
-        for (unsigned int i = 0; i < matrix.size(); i++)
-        {
-            matrix[i].resize(other.matrix[i].size());
-            for (unsigned int j = 0; j < matrix.size(); j++)
-            {
-                matrix[i][j] = other.matrix[i][j];
-            }
-        }
-        return *this;
-    }
     void output()
     {
         for (unsigned int i = 0; i < matrix.size(); i++)
@@ -156,32 +106,32 @@ public:
 
 int main()
 {
-    int len_str = 32 * 32;
-    CData **arr = new CData *[size_arr], **tmp_arr = nullptr;
-    string sss;
-    char *str = new char[len_str];
-    char *old_str = str;
-    ifstream fin("1.txt");
-    fin.getline(str, len_str - 1);
-    sss = str;
-    while ((buf = get_CData(sss)))
-    {
-        if (len_arr == size_arr)
-        {
-            size_arr *= 2;
-            tmp_arr = new CData *[size_arr];
-            for (int i = 0; i < len_arr; i++)
-            {
-                tmp_arr[i] = arr[i];
-            }
-            delete[] arr;
-            arr = tmp_arr;
-            tmp_arr = nullptr;
-        }
-        arr[len_arr] = buf;
-        len_arr++;
-    }
-    fin.close();
+    // int len_str = 32 * 32;
+    // CData **arr = new CData *[size_arr], **tmp_arr = nullptr;
+    // string sss;
+    // char *str = new char[len_str];
+    // char *old_str = str;
+    // ifstream fin("1.txt");
+    // fin.getline(str, len_str - 1);
+    // sss = str;
+    // while ((buf = get_CData(sss)))
+    // {
+    //     if (len_arr == size_arr)
+    //     {
+    //         size_arr *= 2;
+    //         tmp_arr = new CData *[size_arr];
+    //         for (int i = 0; i < len_arr; i++)
+    //         {
+    //             tmp_arr[i] = arr[i];
+    //         }
+    //         delete[] arr;
+    //         arr = tmp_arr;
+    //         tmp_arr = nullptr;
+    //     }
+    //     arr[len_arr] = buf;
+    //     len_arr++;
+    // }
+    // fin.close();
     CData0 a(3);
     CData1 b;
     a.output();

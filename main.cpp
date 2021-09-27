@@ -45,7 +45,8 @@ public:
     }
     CData(CData &&other)
     {
-        array = other.array;
+        array =
+            other.array;
         len = other.len;
         other.array = nullptr;
         other.len = 0;
