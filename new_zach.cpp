@@ -22,10 +22,10 @@ public:
             {
                 mas[i][j] = 'a';
             }
+            mas[i][rand() % N] = 0;
         }
     }
 
-    //skfs
     CData(const CData &other)
     {
         for (unsigned int i = 0; i < N; i++)
@@ -44,10 +44,7 @@ public:
     {
         for (int i = 0; i < N; i++)
         {
-            for (int j = 0; j < N; j++)
-            {
-                cout << mas[i][j] << " ";
-            }
+            cout << mas[i];
             cout << endl;
         }
     }
@@ -78,6 +75,16 @@ public:
     }
 };
 
+void vec_output(CData **vec, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout << "vec[" << i << "] = {" << endl;
+        (**vec).output();
+        cout << "}" << endl;
+    }
+}
+
 class CData1 : public CData
 {
 public:
@@ -104,7 +111,35 @@ public:
 
 int main()
 {
-    CData0 a;
-    a.output();
+    CData **vec = nullptr;
+    int n = rand() % 2 + 1;
+    int i;
+    srand(time(0));
+    vec = new CData *[n];
+    for (int i = 0; i < n; i++)
+    {
+        if (rand() % 2)
+        {
+            vec[i] = new CData0;
+        }
+        else
+        {
+            vec[i] = new CData1;
+        }
+    }
+    CData *tmp = vec[n - 1];
+    for (int i = n - 1; i > 0; i--)
+    {
+        vec[i] = vec[i - 1];
+    }
+    vec[0] = tmp;
+    vec_output(vec, n);
+    for (i = 0; i < n; i++)
+    {
+        ~(*(vec[i]));
+    }
+    vec_output(vec, n);
+    vec_output(vec, n);
+    delete[] vec;
     return 0;
 }
