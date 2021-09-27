@@ -53,7 +53,6 @@ public:
     }
 
     virtual CData &operator~() = 0;
-    // virtual void operator!();
 };
 
 class CData0 : public CData
@@ -61,14 +60,20 @@ class CData0 : public CData
 public:
     CData0() : CData() {}
     CData0(const CData &other) : CData(other) {}
-    // void operator!()
-
-    // {
-    // }
     CData &operator~()
 
     {
-        cout << "";
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                if (mas[i][j] != '\n')
+                {
+                    mas[i][j] = '~';
+                    break;
+                }
+            }
+        }
         return *this;
     }
 };
@@ -78,14 +83,21 @@ class CData1 : public CData
 public:
     CData1() : CData() {}
     CData1(const CData &other) : CData(other) {}
-    // void operator!()
-
-    // {
-    // }
     CData &operator~()
 
     {
-        cout << "";
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = N - 1; j >= 0; j--)
+            {
+                if (mas[j][i] != '\n')
+                {
+                    mas[j][i] = '~';
+                    break;
+                }
+            }
+        }
+
         return *this;
     }
 };
