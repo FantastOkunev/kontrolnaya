@@ -16,6 +16,13 @@ public:
 public:
     CData()
     {
+        for (unsigned int i = 0; i < N; i++)
+        {
+            for (unsigned int j = 0; j < N; j++)
+            {
+                mas[i][j] = 'a';
+            }
+        }
     }
 
     CData(const CData &other)
@@ -44,8 +51,8 @@ public:
         }
     }
 
-    virtual void operator~();
-    virtual void operator!();
+    virtual CData &operator~() = 0;
+    // virtual void operator!();
 };
 
 class CData0 : public CData
@@ -53,13 +60,15 @@ class CData0 : public CData
 public:
     CData0() : CData() {}
     CData0(const CData &other) : CData(other) {}
-    void operator!()
+    // void operator!()
+
+    // {
+    // }
+    CData &operator~()
 
     {
-    }
-    void operator~()
-
-    {
+        cout << "";
+        return *this;
     }
 };
 
@@ -68,19 +77,21 @@ class CData1 : public CData
 public:
     CData1() : CData() {}
     CData1(const CData &other) : CData(other) {}
-    void operator!()
+    // void operator!()
+
+    // {
+    // }
+    CData &operator~()
 
     {
-    }
-    void operator~()
-
-    {
+        cout << "";
+        return *this;
     }
 };
 
 int main()
 {
-    CData0 a();
+    CData0 a;
     a.output();
     return 0;
 }
