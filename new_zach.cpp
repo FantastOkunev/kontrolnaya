@@ -11,11 +11,22 @@ using namespace std;
 class CData
 {
 public:
-    char[N][N] mas;
+    char mas[N][N];
 
 public:
     CData()
     {
+    }
+
+    CData(const CData &other)
+    {
+        for (unsigned int i = 0; i < N; i++)
+        {
+            for (unsigned int j = 0; j < N; j++)
+            {
+                mas[i][j] = other.mas[i][j];
+            }
+        }
     }
 
     virtual ~CData()
@@ -23,17 +34,25 @@ public:
     }
     void output()
     {
+        for (int i = 0; i < N; i++)
+        {
+            for (int j = 0; j < N; j++)
+            {
+                cout << mas[i][j] << " ";
+            }
+            cout << endl;
+        }
     }
 
-    virtual CData &operator-=(int a) = 0;
+    virtual void operator~();
+    virtual void operator!();
 };
 
 class CData0 : public CData
 {
 public:
     CData0() : CData() {}
-    // CData0(unsigned int k) : CData(k) {}
-    // CData0(const CData &other) : CData(other) {}
+    CData0(const CData &other) : CData(other) {}
     void operator!()
 
     {
@@ -48,8 +67,7 @@ class CData1 : public CData
 {
 public:
     CData1() : CData() {}
-    // CData1(const CData &other) : CData(other) {}
-    // CData1(unsigned int k) : CData(k) {}
+    CData1(const CData &other) : CData(other) {}
     void operator!()
 
     {
@@ -60,12 +78,9 @@ public:
     }
 };
 
-void vec_output()
-{
-}
-
 int main()
 {
-
+    CData0 a();
+    a.output();
     return 0;
 }
