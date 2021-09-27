@@ -23,6 +23,16 @@ public:
         matrix[0][0] = 1;
         matrix[1][0] = -1;
     }
+
+    // CData(string line)
+    // {
+    //     int tmp;
+    //     char *str
+    //             line >>
+    //         tmp;
+    //     cout << "tmp = " << tmp << endl;
+    // }
+
     CData(unsigned int k)
     {
         matrix.resize(k);
@@ -104,34 +114,30 @@ public:
     }
 };
 
+void vec_output(vector<CData *> vec)
+{
+    unsigned int i;
+    for (i = 0; i < vec.size(); i++)
+    {
+        cout << "vec[" << i << "] = {" << endl;
+        vec[i]->output();
+        cout << "}" << endl;
+    }
+    cout << endl;
+}
+
 int main()
 {
-    // int len_str = 32 * 32;
-    // CData **arr = new CData *[size_arr], **tmp_arr = nullptr;
-    // string sss;
-    // char *str = new char[len_str];
-    // char *old_str = str;
-    // ifstream fin("1.txt");
-    // fin.getline(str, len_str - 1);
-    // sss = str;
-    // while ((buf = get_CData(sss)))
-    // {
-    //     if (len_arr == size_arr)
-    //     {
-    //         size_arr *= 2;
-    //         tmp_arr = new CData *[size_arr];
-    //         for (int i = 0; i < len_arr; i++)
-    //         {
-    //             tmp_arr[i] = arr[i];
-    //         }
-    //         delete[] arr;
-    //         arr = tmp_arr;
-    //         tmp_arr = nullptr;
-    //     }
-    //     arr[len_arr] = buf;
-    //     len_arr++;
-    // }
-    // fin.close();
+    string line;
+    ifstream in("1.txt");
+    if (in.is_open())
+    {
+        while (getline(in, line))
+        {
+            cout << line << endl;
+        }
+    }
+    in.close();
     CData0 a(3);
     CData1 b;
     a.output();
@@ -145,5 +151,30 @@ int main()
     cout << endl;
     b -= -1;
     b.output();
+
+    cout << endl
+         << endl;
+    unsigned int i;
+    vector<CData *> vec;
+    vec.resize(rand() % 5 + 1);
+    for (i = 0; i < vec.size(); i++)
+    {
+
+        vec[i] = new CData0(rand() % 4 + 1);
+    }
+    vec_output(vec);
+    CData *tmp = vec[vec.size() - 1];
+    for (i = vec.size() - 1; i > 0; i--)
+    {
+        vec[i] = vec[i - 1];
+    }
+    vec[0] = tmp;
+    vec_output(vec);
+    // for (i = 0; i < vec.size(); i++)
+    // {
+    //     rand();
+    // }
+    // vec_output(vec);
+
     return 0;
 }
